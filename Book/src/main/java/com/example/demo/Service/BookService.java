@@ -8,7 +8,7 @@ import com.example.demo.Entity.BookLibrary;
 
 @Service
 public interface BookService {
-	public String addNewBook (BookLibrary bookLibrary);
+	public List<BookLibrary> addBooks(List<BookLibrary> bookLibrary);
 	public List<BookLibrary> getAll();
 	public BookLibrary updateById(Integer id,BookLibrary bookLibrary);
 	public void deleteById(Integer bookId);

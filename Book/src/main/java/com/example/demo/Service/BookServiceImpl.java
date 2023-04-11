@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +17,6 @@ public class BookServiceImpl implements BookService {
 	public BookLibraryRepository bookLibraryRepository;
 
 	org.slf4j.Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
-
-	@Override
-	public String addNewBook(BookLibrary bookLibrary) {
-		java.util.Optional<BookLibrary> byId = bookLibraryRepository.findById(bookLibrary.getBookId());
-
-		byId.ifPresent(book -> {
-			throw new DuplicateBookException("Book with same id present");
-		});
-
-		if (!byId.isPresent()) {
-			logger.info("No Duplicates found");
-			bookLibraryRepository.save(bookLibrary);
-			logger.info("Book Saved Successfully");
-		}
-
-//          BookLibrary bookById=bookLibraryRepository.findById(bookLibrary.getBookId()).orElse(null);
-//          if(bookById==null) {
-//        	  bookLibraryRepository.save(bookLibrary);
-//        	  return "Customer added Successfully";
-//          }
-//          else
-//        	  throw new DuplicateBookException("Book already exists");
-
-		return null;
-	}
 
 	@Override
 	public List<BookLibrary> getAll() {
@@ -68,8 +44,24 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void deleteById(Integer bookId) {
 		bookLibraryRepository.deleteById(bookId);
-		logger.info("book with "+ bookId +"id deleted");
+		logger.info("book with id"+ bookId +"deleted");
 		
 	}
+
+	@Override
+	public List<BookLibrary> addBooks(List<BookLibrary> bookLibrary) {
+		
+	    	List<BookLibrary>savedBooks= new ArrayList<>();
+	    	for(BookLibrary book:bookLibrary) {
+	    		savedBooks.add(bookLibraryRepository.save(book));
+	    }
+	    return savedBooks;
+	}
+
+	//@Override
+//	public List<BookLibrary> addBooks(List<BookLibrary> bookLibrary) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
