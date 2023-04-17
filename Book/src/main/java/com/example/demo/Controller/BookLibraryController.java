@@ -49,7 +49,7 @@ public class BookLibraryController {
 	
 	@DeleteMapping("/deleteBook/{bookid}")  
 	@ResponseStatus(code = HttpStatus.OK)
-	private void deleteBook(@PathVariable("bookid") Integer bookid)   
+	public void deleteBook(@PathVariable("bookid") Integer bookid)   
 	{  
 	bookServiceImpl.deleteById(bookid);  
 	}

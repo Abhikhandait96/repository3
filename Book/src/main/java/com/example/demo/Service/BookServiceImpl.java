@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void deleteById(Integer bookId) {
 		bookLibraryRepository.deleteById(bookId);
-		logger.info("book with id"+ bookId +"deleted");
+		logger.info("book with id "+ bookId +" deleted");
 		
 	}
 
